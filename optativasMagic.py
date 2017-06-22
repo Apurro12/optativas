@@ -256,6 +256,12 @@ for i in range(len(alumnos)):
 	alumnos[i].check()
 
 listaOptativas = ["Mecánica II","Mecánica Estadísitica II","Métodos de la Física Matemática","Seminario de Física del Sólido","Seminario de Partículas y Campos","Seminario de Mecánica Cuántica","Seminario de Optica Avanzada","Seminario de Física Nuclear","Simulaciones Computacionales en Física","Termodinámica","Álgebra lineal: Aplicaciones Físicas", "Electromagnetismo 2", "Elementos de la Teoría Cuántica de Campos", "Introducción a la Relatividad General", "Física de la Materia Blanda", "Tópicos de Materia Condensada, ciencia de materiales y nanociencia"]
+listaOptativas_FisMed = ["Procesos estocásticos y su aplicación al modelo de sistemas físicos, químicos y biológicos","Computación","Electrónica", "Análisis de Señales", "Biofísica"]
+listaOptativas_Bio = ["Biofisicoquímica","Biología"]
+listaOptativas_Mate = ["Geometría diferencial", "Elementos de matetmática aplicada", "Topología", "Análisis Numérico I","Geometría Diferencial"]
+listaOptativas_Obser = ["Computación","Dinámica no lineal","Análisis Numérico","Introducción a la Astrofísica Relativista"]
+listaOptativas_Posgrado = ["Métodos de geometría diferencial en Teoría de la Información","Probabilidades y estadísitca en Física Experimental"]
+
 for j in range(0,len(listaOptativas)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -264,8 +270,49 @@ for j in range(0,len(listaOptativas)):
     for i in range(0,len(alumnos)):
         if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
             print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
-    
-#    print("Mecánica II")
-#for i in range(0,len(alumnos)):
-#    if any("Mecánica II" in s for s in alumnos[i].PuedeCursar):
-#        print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+
+for j in range(0,len(listaOptativas_FisMed)):
+    print(" ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print(listaOptativas[j])
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+
+for j in range(0,len(listaOptativas_Bio)):
+    print(" ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print(listaOptativas[j])
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+
+for j in range(0,len(listaOptativas_Mate)):
+    print(" ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print(listaOptativas[j])
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+
+for j in range(0,len(listaOptativas_Obser)):
+    print(" ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print(listaOptativas[j])
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+
+for j in range(0,len(listaOptativas_Posgrado)):
+    print(" ")
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print(listaOptativas[j])
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+
