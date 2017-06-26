@@ -89,11 +89,11 @@ class student:
         print("Situacion del alumno "+self.nombre+" "+self.apellido+" con numero de alumno "+self.numAlumno)
         print("Conflictos: ")
         
-        listaOptativas = ["Mecánica II","Mecánica Estadísitica II","Métodos de la Física Matemática","Seminario de Física del Sólido","Seminario de Partículas y Campos","Seminario de Mecánica Cuántica","Seminario de Optica Avanzada","Seminario de Física Nuclear","Simulaciones Computacionales en Física","Termodinámica","Álgebra lineal: Aplicaciones Físicas", "Electromagnetismo 2", "Elementos de la Teoría Cuántica de Campos", "Introducción a la Relatividad General", "Física de la Materia Blanda", "Tópicos de Materia Condensada, ciencia de materiales y nanociencia"]
+        listaOptativas = ["Mecánica II","Mecánica Estadísitica II","Métodos de la Física Matemática","Seminario de Física del Sólido","Seminario de Partículas y Campos","Seminario de Mecánica Cuántica","Seminario de Optica Avanzada","Seminario de Física Nuclear","Simulaciones Computacionales en Física","Termodinámica","Álgebra lineal: Aplicaciones Físicas", "Electromagnetismo 2", "Elementos de la Teoría Cuántica de Campos", "Introducción a la Relatividad General", "Física de la Materia Blanda", "Tópicos de Materia Condensada, ciencia de materiales y nanociencia", "Ciencia de Materiales y Nanociencia"]
         listaOptativas_FisMed = ["Procesos estocásticos y su aplicación al modelo de sistemas físicos, químicos y biológicos","Computación","Electrónica", "Análisis de Señales", "Biofísica"]
         listaOptativas_Bio = ["Biofisicoquímica","Biología"]
-        listaOptativas_Mate = ["Geometría diferencial", "Elementos de matetmática aplicada", "Topología", "Análisis Numérico I","Geometría Diferencial"]
-        listaOptativas_Obser = ["Computación","Dinámica no lineal","Análisis Numérico","Introducción a la Astrofísica Relativista"]
+        listaOptativas_Mate = ["Geometría diferencial", "Elementos de matetmática aplicada", "Topología", "Análisis Numérico I","Geometría Diferencial","Geometria Diferencial","Elementos de mtemática aplicada - Geometría diferencial","Geometría diferencial (departamento de matemática)"]
+        listaOptativas_Obser = ["Computación (observatorio)","computación (observatorio)", "Computación de Astronomía" ,"Dinámica no lineal","Análisis Numérico","Introducción a la Astrofísica Relativista","Computación (Observatorio)"]
         listaOptativas_Posgrado = ["Métodos de geometría diferencial en Teoría de la Información","Probabilidades y estadísitca en Física Experimental"]
 
 
@@ -120,9 +120,8 @@ class student:
         if any("Introducción a la Astrofísica Relativista" in s for s in self.Cursar):
             appendAndPrint("Introducción a la Astrofísica Relativista",[self.Tercero[0],self.Tercero[1],self.Tercero[2]],[materias_3[0],materias_3[1],materias_3[2]])
         
-        if any("Geometría diferencial" in s for s in self.Cursar):
-            appendAndPrint("Geometría diferencial",[self.Optativas,self.Tercero[1]],[listaOptativas[10],materias_3[1]])
-            #appendAndPrint("Geometría diferencial",[listaOptativas[10],self.Tercero[1]],[listaOptativas[10],materias_3[1]])
+        if any(("Geometría diferencial" or "Elementos de mtemática aplicada - Geometría diferencial" or "Geometría diferencial (departamento de matemática)") in s for s in self.Cursar) or any("Geometría Diferencial" in s for s in self.Cursar) or any("Geometria Diferencial" in s for s in self.Cursar):
+            appendAndPrint("Geometría diferencial",[listaOptativas[10],self.Tercero[1]],[listaOptativas[10],materias_3[1]])
         
         if any("Elementos de matemática aplicada" in s for s in self.Cursar):
             appendAndPrint("Elementos de matemática aplicada",[self.Primero[3],self.Primero[2]],[materias_1[3],materias_1[3]])
@@ -146,7 +145,7 @@ class student:
         if any("Procesos estocásticos y su aplicación al modelo de sistemas físicos, químicos y biológicos" in s for s in self.Cursar):
             appendAndPrint("Procesos estocásticos y su aplicación al modelo de sistemas físicos, químicos y biológicos",[self.Tercero[1],self.Cuarto[2]],[materias_3[1],materias_4[2]])
         
-        if any("Computación" in s for s in self.Cursar):
+        if any(("Computación" or "Computación (Observatorio)" or "computación (observatorio)" or "Computación de Astronomía") in s for s in self.Cursar):
             appendAndPrint("Computación",[self.Primero[2],self.Segundo[0]],[materias_1[2],materias_2[0]])
         
         if any("Electrónica" in s for s in self.Cursar):
@@ -170,7 +169,7 @@ class student:
         if any("Física de la Materia Blanda" in s for s in self.Cursar):
             appendAndPrint("Física de la Materia Blanda",[self.Tercero[0],self.Tercero[1],self.Tercero[2],self.Tercero[3],self.Tercero[4],self.Tercero[5]],[materias_3[0],materias_3[1],materias_3[2],materias_3[3],materias_3[4],materias_3[5]])
         
-        if any("Tópicos de Materia Condensada, ciencia de materiales y nanociencia" in s for s in self.Cursar):
+        if any("Tópicos de Materia Condensada, ciencia de materiales y nanociencia" in s for s in self.Cursar) or any("Ciencia de Materiales y Nanociencia" in s for s in self.Cursar):
             appendAndPrint("Tópicos de Materia Condensada, ciencia de materiales y nanociencia",[listaOptativas[3],self.Cuarto[0],self.Tercero[0]],[listaOptativas[3],materias_4[0],materias_3[0]])
         
         if any("Mecánica II" in s for s in self.Cursar):
@@ -271,10 +270,10 @@ for i in range(len(alumnos)):
 	alumnos[i].check()
 
 listaOptativas = ["Mecánica II","Mecánica Estadísitica II","Métodos de la Física Matemática","Seminario de Física del Sólido","Seminario de Partículas y Campos","Seminario de Mecánica Cuántica","Seminario de Optica Avanzada","Seminario de Física Nuclear","Simulaciones Computacionales en Física","Termodinámica","Álgebra lineal: Aplicaciones Físicas", "Electromagnetismo 2", "Elementos de la Teoría Cuántica de Campos", "Introducción a la Relatividad General", "Física de la Materia Blanda", "Tópicos de Materia Condensada, ciencia de materiales y nanociencia"]
-listaOptativas_FisMed = ["Procesos estocásticos y su aplicación al modelo de sistemas físicos, químicos y biológicos","Computación","Electrónica", "Análisis de Señales", "Biofísica"]
+listaOptativas_FisMed = ["Procesos estocásticos y su aplicación al modelo de sistemas físicos, químicos y biológicos","Computación","Electrónica","Análisis de Señales", "Biofísica"]
 listaOptativas_Bio = ["Biofisicoquímica","Biología"]
 listaOptativas_Mate = ["Geometría diferencial", "Elementos de matetmática aplicada", "Topología", "Análisis Numérico I","Geometría Diferencial"]
-listaOptativas_Obser = ["Computación","Dinámica no lineal","Análisis Numérico","Introducción a la Astrofísica Relativista"]
+listaOptativas_Obser = ["Computación","Dinámica no lineal","Análisis Numérico","Introducción a la Astrofísica Relativista","Computación (Observatorio)"]
 listaOptativas_Posgrado = ["Métodos de geometría diferencial en Teoría de la Información","Probabilidades y estadísitca en Física Experimental"]
 
 
