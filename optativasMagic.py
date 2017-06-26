@@ -2,6 +2,9 @@ import sys
 import io
 import shutil
 import re
+import os
+import subprocess
+import shlex
 
 class student:
     def __init__(self,array):
@@ -271,20 +274,112 @@ listaOptativas_Mate = ["Geometría diferencial", "Elementos de matetmática apli
 listaOptativas_Obser = ["Computación","Dinámica no lineal","Análisis Numérico","Introducción a la Astrofísica Relativista"]
 listaOptativas_Posgrado = ["Métodos de geometría diferencial en Teoría de la Información","Probabilidades y estadísitca en Física Experimental"]
 
+
+F = open("letter.tex","w")
+
+F.write("\\documentclass{letter}\n")
+F.write("\\usepackage{hyperref}\n")
+#F.write("\\usepackage{multicolumn}\n")
+F.write("\\usepackage[spanish]{babel}\n")
+F.write("\\usepackage[utf8]{inputenc}\n")
+F.write("\\signature{La comisi\\'on de optativas}\n")
+F.write("\\address{La Plata, 1 de julio de 2017}\n")
+F.write("\\date{}\n")
+F.write("\\begin{document}\n")
+F.write("\n")
+F.write("\\begin{letter}{Sr. Jefe del Departamento de F\\'isica \\\\ Facultad de Ciencias Exactas, UNLP \\\\ Prof. Dr. Daniel Cabra \\\\ S/D}\n")
+F.write("\\opening{}\n")
+
+F.write("Nos dirigimos a Ud. en nuestra calidad de Comisión Asesora de Materias Optativas, a fin de elevar la nómina de alumnos autorizados a cursar Materias Optativas en el 2do Cuatrimestre de 2017. Siguiendo las recomendaciones aprobadas por el Consejo Departamental el 13 de Julio de 2015, presentamos, para cada Materia Optativa, dos listas:\n")
+F.write("\\begin{enumerate}\n")
+F.write("\\item Un listado con aquellos alumnos que antes de comenzar el Primer Cuatrimestre de 2017 cumplen con las correlatividades necesarias para cursar en el próximo cuatrimestre;\n")
+F.write("\\item Otro con los alumnos que al momento de la preinscripción se encontraban cursando alguna de las materias correlativas para poder cursar las materias a las que se preinscribieron. Los mismos sólo podrán cursar las materias optativas solicitadas en caso de aprobar sus correlativas.\n")
+
+F.write("\n")
+F.write("Asimismo, no incluimos en esas listas los casos cuyas preinscripciones aconsejamos desaprobar. Consideramos importante informar al Consejo acerca de los motivos que nos llevaron a tomar esta decisión, enumerados debajo:\n")
+F.write("\\end{enumerate}\n")
+
+F.write("\n")
+F.write("Solicitamos al Consejo que comunique a la brevedad las resoluciones tomadas.\n")
+F.write("\n")
+F.write("\\closing{Sin otro particular, lo saluda atentamente}\n")
+F.write("\n")
+#F.write("\ps\n")
+#F.write("\n")
+#F.write("P.S. You can find the full text of GFDL license at\n")
+#F.write("\n")
+#F.write("\\encl{Copyright permission form}\n")
+#F.write("\n")
+F.write("\\end{letter}\n")
+F.write("\\end{document}\n")
+F.close()
+
+File = open("letter_materias.tex","w")
+File.write('\\documentclass{article}\n') # python will convert \n to os.linesepFile.write("\\newpage\n")
+File.write("\\usepackage[spanish]{babel}\n")
+File.write("\\usepackage[utf8]{inputenc}\n")
+
+File.write("\\begin{document}\n")
+
 for j in range(0,len(listaOptativas)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    File.write("\\begin{tabular}{|l|l|l|}\n")
+#    File.write("\\multicolumn{3}{c}{{}}".format(listaOptativas[j]))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("{}\\\\\\hline\n".format(listaOptativas[j]))
+
     print(listaOptativas[j])
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print('\n'+'Aprobados:')
+    File.write("\\hline\n")
+    File.write("APROBADOS & & \\\\\n")
     for i in range(0,len(alumnos)):
         if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
             print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
     print('\n\n'+'Condicionales:')
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("CONDICIONALES & & \\\\\n")
+    File.write("\\hline\n")
+    File.write("\\hline\n")
     for i in range(0,len(alumnos)):
         if any(listaOptativas[j] in s for s in alumnos[i].Condicional):
             print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
-            
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("\\end{tabular}\n")        
+    File.write("\n")        
+    File.write("\\vspace{1cm}\n")        
+
+for j in range(0,len(listaOptativas_FisMed)):
+    File.write("\\begin{tabular}{|l|l|l|}\n")
+#    File.write("\\multicolumn{3}{c}{{}}".format(listaOptativas_FisMed[j]))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("{}\\\\\\hline\n".format(listaOptativas_FisMed[j]))
+    File.write("\\hline\n")
+    File.write("APROBADOS & & \\\\\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_FisMed[j] in s for s in alumnos[i].PuedeCursar):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("CONDICIONALES & & \\\\\n")
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_FisMed[j] in s for s in alumnos[i].Condicional):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("\\end{tabular}\n")        
+    File.write("\n")        
+    File.write("\\vspace{1cm}\n")        
+
 for j in range(0,len(listaOptativas_FisMed)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -298,6 +393,31 @@ for j in range(0,len(listaOptativas_FisMed)):
     for i in range(0,len(alumnos)):
         if any(listaOptativas_FisMed[j] in s for s in alumnos[i].Condicional):
             print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+
+for j in range(0,len(listaOptativas_Bio)):
+    File.write("\\begin{tabular}{|l|l|l|}\n")
+#    File.write("\\multicolumn{3}{c}{{}}".format(listaOptativas_Bio[j]))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("{}\\\\\\hline\n".format(listaOptativas_Bio[j]))
+    File.write("\\hline\n")
+    File.write("APROBADOS & & \\\\\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Bio[j] in s for s in alumnos[i].PuedeCursar):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("CONDICIONALES & & \\\\\n")
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Bio[j] in s for s in alumnos[i].Condicional):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("\\end{tabular}\n")        
+    File.write("\n")        
+    File.write("\\vspace{1cm}\n")        
 
 for j in range(0,len(listaOptativas_Bio)):
     print(" ")
@@ -314,6 +434,31 @@ for j in range(0,len(listaOptativas_Bio)):
             print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
 
 for j in range(0,len(listaOptativas_Mate)):
+    File.write("\\begin{tabular}{|l|l|l|}\n")
+#    File.write("\\multicolumn{3}{c}{{}}".format(listaOptativas_Mate[j]))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("{}\\\\\\hline\n".format(listaOptativas_Mate[j]))
+    File.write("\\hline\n")
+    File.write("APROBADOS & & \\\\\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Mate[j] in s for s in alumnos[i].PuedeCursar):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("CONDICIONALES & & \\\\\n")
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Mate[j] in s for s in alumnos[i].Condicional):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("\\end{tabular}\n")        
+    File.write("\n")        
+    File.write("\\vspace{1cm}\n")        
+
+for j in range(0,len(listaOptativas_Mate)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print(listaOptativas_Mate[j])
@@ -326,6 +471,31 @@ for j in range(0,len(listaOptativas_Mate)):
         if any(listaOptativas_Mate[j] in s for s in alumnos[i].Condicional):
             print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
 
+
+for j in range(0,len(listaOptativas_Obser)):
+    File.write("\\begin{tabular}{|l|l|l|}\n")
+#    File.write("\\multicolumn{3}{c}{{}}".format(listaOptativas_Obser[j]))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("{}\\\\\\hline\n".format(listaOptativas_Obser[j]))
+    File.write("\\hline\n")
+    File.write("APROBADOS & & \\\\\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Obser[j] in s for s in alumnos[i].PuedeCursar):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("CONDICIONALES & & \\\\\n")
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Obser[j] in s for s in alumnos[i].Condicional):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("\\end{tabular}\n")        
+    File.write("\n")        
+    File.write("\\vspace{1cm}\n")        
 
 for j in range(0,len(listaOptativas_Obser)):
     print(" ")
@@ -342,6 +512,31 @@ for j in range(0,len(listaOptativas_Obser)):
 
 
 for j in range(0,len(listaOptativas_Posgrado)):
+    File.write("\\begin{tabular}{|l|l|l|}\n")
+#    File.write("\\multicolumn{3}{c}{{}}".format(listaOptativas_Posgrado[j]))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("{}\\\\\\hline\n".format(listaOptativas_Posgrado[j]))
+    File.write("\\hline\n")
+    File.write("APROBADOS & & \\\\\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Posgrado[j] in s for s in alumnos[i].PuedeCursar):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("CONDICIONALES & & \\\\\n")
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Posgrado[j] in s for s in alumnos[i].Condicional):
+            File.write("{}&{}&{}\\\\\n".format(alumnos[i].nombre,alumnos[i].apellido,alumnos[i].numAlumno))
+    File.write("\\hline\n")
+    File.write("\\hline\n")
+    File.write("\\end{tabular}\n")        
+    File.write("\n")        
+    File.write("\\vspace{1cm}\n")        
+
+for j in range(0,len(listaOptativas_Posgrado)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print(listaOptativas_Posgrado[j])
@@ -353,3 +548,14 @@ for j in range(0,len(listaOptativas_Posgrado)):
     for i in range(0,len(alumnos)):
         if any(listaOptativas_Posgrado[j] in s for s in alumnos[i].Condicional):
             print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+File.write("\\end{document}\n")
+File.close()
+proc=subprocess.Popen(shlex.split('pdflatex letter.tex'))
+proc.communicate()
+
+proc=subprocess.Popen(shlex.split('pdflatex letter_materias.tex'))
+proc.communicate()
+bashCommand = "pdfunite letter.pdf letter_materias.pdf cartaConsejo.pdf"
+process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+output = process.communicate()[0]
+
