@@ -52,19 +52,23 @@ class student:
 
         
     def check(self):
-        
         def appendAndPrint(name,listOfCorrs,listOfNames):
+            if 'NC' not in listOfCorrs and 'EC' not in listOfCorrs:
+                puedeCursar.append(name)
+            if 'NC' not in listOfCorrs and 'EC' in listOfCorrs:
+                condicional.append(name)
             if any(name in s for s in self.Cursar):
                 for i in range(len(listOfCorrs)):
-                    if(listOfCorrs[i] == "A" or listOfCorrs[i] == "TP" or listOfCorrs[i] == "EC"):
-                        puedeCursar.append(name)
-                        break
+#                    if(listOfCorrs[i] == "A" or listOfCorrs[i] == "TP" or listOfCorrs[i] == "EC"):
+#                        puedeCursar.append(name)
+#                        break
                     if(listOfCorrs[i] == "NC"):
                         print("No tiene "+listOfNames[i]+" que se requiere para cursar "+name+".")
                     if(listOfCorrs[i] == "EC"):
                         print("Ojo! Para cursar "+name+" necesita "+listOfNames[i]+" y la esta cursando.")
         nuevas = []
         puedeCursar = []
+        condicional = []
         corrMecanicaII = ["Mecánica Analítica"] #materias_3[0]
         corrMecanicaEstadisticaII = ["Mecánica Estadística I"] #materias_4[2]
         corrMetodosdelaFisicaMatematica = ["Matemáticas Especiales II"] #materias_3[1]
@@ -76,7 +80,7 @@ class student:
         corrSimulacionesComputacionalesenFisica = ["Mecánica Estadística I"] #materias_4[2]
         corrTermodinamica = ["Física General IV","Física Experimental IV","Matemáticas Especiales I","Física Macroscópica"] #materias_2[3],materias_2[4],materias_2[5],materias_2[6],
         corrTopicosdeMateriaCondensada = ["X"]
-        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        print('\n'+"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         print("Situacion del alumno "+self.nombre+" "+self.apellido+" con numero de alumno "+self.numAlumno)
         print("Conflictos: ")
         
@@ -197,13 +201,18 @@ class student:
             
 
         self.PuedeCursar = puedeCursar
+        self.Condicional = condicional
         
-        print("pidio Cursar: ")
+        print('------------------------------------------------'+'\n')
+        print("Pidio Cursar: ")
         print(self.Cursar)
-        print("puede cursar: ")
+        print('\n'+"Puede cursar: ")
         print(puedeCursar)
-        print("Quiere cursar tambien la nueva materia:")
+        print('\n'+"Queda como condicional en: ")
+        print(self.Condicional) 
+        print('\n'+"Quiere cursar tambien la nueva materia:")
         print(nuevas)
+        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
 
 materias_1 = ["Física General I", "Física Experimental I", "Análisis Matemático I", "Algebra", "Física General II", "Física Experimental II"] 
@@ -267,52 +276,80 @@ for j in range(0,len(listaOptativas)):
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print(listaOptativas[j])
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print('\n'+'Aprobados:')
     for i in range(0,len(alumnos)):
         if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
-            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
-
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+    print('\n\n'+'Condicionales:')
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas[j] in s for s in alumnos[i].Condicional):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+            
 for j in range(0,len(listaOptativas_FisMed)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print(listaOptativas[j])
+    print(listaOptativas_FisMed[j])
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print('\n'+'Aprobados:')
     for i in range(0,len(alumnos)):
-        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
-            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+        if any(listaOptativas_FisMed[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+    print('\n\n'+'Condionales:')
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_FisMed[j] in s for s in alumnos[i].Condicional):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
 
 for j in range(0,len(listaOptativas_Bio)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print(listaOptativas[j])
+    print(listaOptativas_Bio[j])
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print('\n'+'Aprobados:')
     for i in range(0,len(alumnos)):
-        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
-            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+        if any(listaOptativas_Bio[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+    print('\n\n'+'Condionales:')
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Bio[j] in s for s in alumnos[i].Condicional):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
 
 for j in range(0,len(listaOptativas_Mate)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print(listaOptativas[j])
+    print(listaOptativas_Mate[j])
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     for i in range(0,len(alumnos)):
-        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
-            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+        if any(listaOptativas_Mate[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+    print('\n\n'+'Condionales:')
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Mate[j] in s for s in alumnos[i].Condicional):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+
 
 for j in range(0,len(listaOptativas_Obser)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print(listaOptativas[j])
+    print(listaOptativas_Obser[j])
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     for i in range(0,len(alumnos)):
-        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
-            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
+        if any(listaOptativas_Obser[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+    print('\n\n'+'Condionales:')
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Obser[j] in s for s in alumnos[i].Condicional):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+
 
 for j in range(0,len(listaOptativas_Posgrado)):
     print(" ")
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    print(listaOptativas[j])
+    print(listaOptativas_Posgrado[j])
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     for i in range(0,len(alumnos)):
-        if any(listaOptativas[j] in s for s in alumnos[i].PuedeCursar):
-            print(alumnos[i].nombre+" "+alumnos[i].apellido+" "+alumnos[i].numAlumno)
-
+        if any(listaOptativas_Posgrado[j] in s for s in alumnos[i].PuedeCursar):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
+    print('\n\n'+'Condionales:')
+    for i in range(0,len(alumnos)):
+        if any(listaOptativas_Posgrado[j] in s for s in alumnos[i].Condicional):
+            print(alumnos[i].nombre+'\t'+alumnos[i].apellido+'\t'+alumnos[i].numAlumno)
