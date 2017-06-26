@@ -43,11 +43,6 @@ class student:
 #		for i in range(len(optIntencion)):
 #			intencion_optativas.append(optIntencion[i])
         TodoCursado = status_materias_1+status_materias_2+status_materias_3+status_materias_4+opt
-        #TodoCursado = append(status_materias_1)
-        #TodoCursado = append(status_materias_2)
-        #TodoCursado = append(status_materias_3)
-        #TodoCursado = append(status_materias_4)
-        #TodoCursado = append(opt)
         
         self.TodoCursado = TodoCursado
         self.Cursar = optIntencion
@@ -62,6 +57,13 @@ class student:
                 condicional.append(name)
             if any(name in s for s in self.Cursar):
                 for i in range(len(listOfCorrs)):
+                    #for j in self.Optativas:
+                    #    if any(j in s for s in listOfCorrs):
+                    #        print(j)
+                    #        print("7777777777777")
+                    #if( i == self.Optativas):
+                    #    print("7777777777777")
+                    #    print(self.Optativas)
 #                    if(listOfCorrs[i] == "A" or listOfCorrs[i] == "TP" or listOfCorrs[i] == "EC"):
 #                        puedeCursar.append(name)
 #                        break
@@ -119,7 +121,8 @@ class student:
             appendAndPrint("Introducción a la Astrofísica Relativista",[self.Tercero[0],self.Tercero[1],self.Tercero[2]],[materias_3[0],materias_3[1],materias_3[2]])
         
         if any("Geometría diferencial" in s for s in self.Cursar):
-            appendAndPrint("Geometría diferencial",[listaOptativas[10],self.Tercero[1]],[listaOptativas[10],materias_3[1]])
+            appendAndPrint("Geometría diferencial",[self.Optativas,self.Tercero[1]],[listaOptativas[10],materias_3[1]])
+            #appendAndPrint("Geometría diferencial",[listaOptativas[10],self.Tercero[1]],[listaOptativas[10],materias_3[1]])
         
         if any("Elementos de matemática aplicada" in s for s in self.Cursar):
             appendAndPrint("Elementos de matemática aplicada",[self.Primero[3],self.Primero[2]],[materias_1[3],materias_1[3]])
@@ -230,7 +233,7 @@ def printFullInfo(allStudents):
 		print("El alumno "+allStudents[i].nombre+" ")
 		print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
-F = open("Resultados.txt","r",encoding='utf-8') 
+F = open("Resultados_2017.txt","r",encoding='utf-8') 
 
 alumnos = []
 
